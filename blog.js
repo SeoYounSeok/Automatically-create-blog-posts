@@ -5,15 +5,17 @@ import baekjoon from "./assets/baekjoon.js";
 (async () => {
   // headless 브라우저 실행
   const browser = await puppeteer.launch({ headless: false });
-  // 새로운 페이지 열기
+  // 백준 페이지 설정 (캡쳐 및 크롤링 예정 )
   const page = await browser.newPage();
-  await page.setViewport({
-    width: 1366,
-    height: 768,
-  });
-  // `https://www.google.com/` URL에 접속
+  await page.setViewport({ width: 0, height: 0 });
   await page.goto("https://www.acmicpc.net/problem/" + baekjoon.no);
 
+  //
+  const blogPage = await browser.newPage();
+  await blogPage.goto("https://www.tistory.com/auth/login");
+  const loginButton = await blogPage.$(".btn_login link_kakao_id");
+  await loginButton.click();
+  await page.waitForNavigation();
   // inputArea = await page.$(".gLFyf");
   // searchBtn = await page.$(
   //   ".FPdoLc > center:nth-child(1) > input:nth-child(1)"
@@ -23,7 +25,7 @@ import baekjoon from "./assets/baekjoon.js";
   // await searchBtn.click();
 
   // await page.waitForNavigation();
-  console.log(baekjoon.comment);
+
   // `screen1.png` 스크린샷을 캡처 하여 screen 폴더에 저장
   // await page.screenshot({ path: "./screen/screen1.png" });
 
