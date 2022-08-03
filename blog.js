@@ -31,6 +31,12 @@ import auth from "./assets/auth.js";
   await blogPage.waitForSelector(".btn_g.btn_confirm.submit");
   await blogPage.click(".btn_g.btn_confirm.submit");
 
+  await blogPage.waitForSelector(".thumb_profile");
+  await blogPage.click(".thumb_profile");
+
+  await blogPage.waitForSelector(".img_common_tistory.link_edit");
+  await blogPage.click(".img_common_tistory.link_edit");
+
   // inputArea = await page.$(".gLFyf");
   // searchBtn = await page.$(
   //   ".FPdoLc > center:nth-child(1) > input:nth-child(1)"
