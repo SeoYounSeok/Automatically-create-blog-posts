@@ -21,13 +21,10 @@ import auth from "./assets/auth.js";
   await blogPage.waitForSelector("#id_email_2");
   await blogPage.waitForSelector("#id_password_3");
 
-  const kakao_id = auth.id;
-  const kakao_pw = auth.pw;
-
-  await blogPage.evaluate(() => {
-    document.querySelector("#id_email_2").value = "-";
-    document.querySelector("#id_password_3").value = "-";
-  });
+  await blogPage.evaluate((kakao) => {
+    document.querySelector("#id_email_2").value = kakao.id;
+    document.querySelector("#id_password_3").value = kakao.pw;
+  }, auth);
   await blogPage.waitForSelector(".btn_g.btn_confirm.submit");
   await blogPage.click(".btn_g.btn_confirm.submit");
 

@@ -1,6 +1,6 @@
 const auth = {
-  id: "--",
-  pw: "--",
+  id: "-",
+  pw: "-",
 };
 
 export default auth;
