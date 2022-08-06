@@ -2,6 +2,7 @@
 import puppeteer from "puppeteer";
 import baekjoon from "./assets/baekjoon.js";
 import auth from "./assets/auth.js";
+import blogData from "./assets/blogData.js";
 
 (async () => {
   // headless 브라우저 실행
@@ -10,6 +11,8 @@ import auth from "./assets/auth.js";
   const page = await browser.newPage();
   await page.setViewport({ width: 0, height: 0 });
   await page.goto("https://www.acmicpc.net/problem/" + baekjoon.no);
+  // `screen1.png` 스크린샷을 캡처 하여 screen 폴더에 저장
+  // await page.screenshot({ path: "./screen/screen1.png" });
 
   // 티스토리 페이지 설정 (페이지 작성 예정)
   const blogPage = await browser.newPage();
@@ -34,6 +37,11 @@ import auth from "./assets/auth.js";
   await blogPage.waitForSelector(".img_common_tistory.link_edit");
   await blogPage.click(".img_common_tistory.link_edit");
 
-  // `screen1.png` 스크린샷을 캡처 하여 screen 폴더에 저장
-  // await page.screenshot({ path: "./screen/screen1.png" });
+  // 작성페이지로 이동 - 자동 저장을 수정하고 진행할 예정
+  await blogPage.waitForSelector(".textarea_tit");
+  await blogPage.waitForSelector("#tinymce");
+  await blogPage.evaluate((data) => {
+    document.querySelector(".textarea_tit").value = data.code;
+    document.querySelector("#tinymce").value = data.code;
+  }, blogData);
 })();
